@@ -22,11 +22,29 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <html
     lang="es"
-    className={`${poppins.variable} ${geistMono.variable} h-full antialiased`}
+    className={`${poppins.variable} ${geistMono.variable} h-full antialiased rr-preload`}
   >
+    <head>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `@media (prefers-reduced-motion: no-preference) {
+            html.rr-preload [data-rr-header] { opacity: 0; visibility: hidden; }
+            html.rr-preload [data-rr-hero] [data-rr-stagger-word],
+            html.rr-preload [data-rr-hero] [data-rr-fade],
+            html.rr-preload [data-rr-hero] [data-rr-code-card],
+            html.rr-preload [data-rr-hero] [data-rr-install-card] { opacity: 0; visibility: hidden; }
+          }`,
+        }}
+      />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: "window.setTimeout(function(){document.documentElement.classList.remove('rr-preload');},2000);",
+        }}
+      />
+    </head>
     <body className="min-h-full flex flex-col overflow-x-hidden">
       <Header />
-      
+       
       <main className="flex-1">
         {children}
       </main>
