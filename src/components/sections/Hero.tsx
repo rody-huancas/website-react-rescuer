@@ -16,7 +16,7 @@ const Hero = () => {
   useHeroAnimations({ rootRef, prefersReducedMotion });
 
   return (
-    <section ref={rootRef} className="relative lg:h-dvh overflow-hidden pt-16">
+    <section ref={rootRef} data-rr-hero className="relative lg:h-dvh overflow-hidden pt-16">
       <div className="pointer-events-none absolute inset-0">
         <div
           data-rr-spotlight
@@ -174,7 +174,7 @@ const Hero = () => {
             </div>
           </div>
 
-          <div data-rr-fade className="pb-1">
+          <div className="pb-1">
             <InstallCommands />
           </div>
         </div>
