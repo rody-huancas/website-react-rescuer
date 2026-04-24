@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+/* Tailwind v4 content discovery (no tailwind.config.ts) */
+@source "../**/*.{js,ts,jsx,tsx,mdx}";
+
+@layer base {
+  :root {
+    /* Brand */
+    --rr-bg: #0d0d0d;
+    --rr-fg: #f4f2ee;
+    --rr-muted: #b9b3ad;
+    --rr-accent: #4FACFE;
+    --rr-cyan: #34d6ff;
+    --rr-accent-soft: color-mix(in oklab, var(--rr-accent), white 12%);
+    --rr-border: color-mix(in oklab, var(--rr-fg), transparent 86%);
+    --rr-surface: color-mix(in oklab, var(--rr-fg), transparent 93%);
+    --rr-surface-2: color-mix(in oklab, var(--rr-fg), transparent 96%);
+  }
+
+  html {
+    color-scheme: dark;
+    background: var(--rr-bg);
+  }
+
+  body {
+    min-height: 100%;
+    font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+    background: radial-gradient(
+        900px 600px at 18% -10%,
+        color-mix(in oklab, var(--rr-accent), transparent 78%),
+        transparent 55%
+      ),
+      radial-gradient(
+        900px 600px at 88% 10%,
+        color-mix(in oklab, white, transparent 92%),
+        transparent 55%
+      ),
+      var(--rr-bg);
+    color: var(--rr-fg);
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Subtle grid + noise to feel “physical” */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+          to right,
+          color-mix(in oklab, white, transparent 96%) 1px,
+          transparent 1px
+        ) 0 0 / 72px 72px,
+      linear-gradient(
+          to bottom,
+          color-mix(in oklab, white, transparent 96%) 1px,
+          transparent 1px
+        ) 0 0 / 72px 72px,
+      radial-gradient(
+          1200px 700px at 50% 18%,
+          color-mix(in oklab, var(--rr-accent), transparent 92%),
+          transparent 60%
+        );
+    opacity: 0.6;
+    mix-blend-mode: screen;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--rr-accent), transparent 60%);
+    color: var(--rr-fg);
+  }
+
+  a {
+    text-underline-offset: 4px;
+  }
+}
+
+@layer utilities {
+  .rr-container {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-7;
+  }
+
+  .rr-hairline {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--rr-fg), transparent 82%),
+      transparent
+    );
+  }
+
+  .rr-glow {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--rr-accent), transparent 80%),
+      0 12px 60px color-mix(in oklab, var(--rr-accent), transparent 70%);
+  }
+
+  .rr-card {
+    background: linear-gradient(
+        180deg,
+        color-mix(in oklab, var(--rr-fg), transparent 94%),
+        color-mix(in oklab, var(--rr-fg), transparent 97%)
+      );
+    border: 1px solid var(--rr-border);
+    border-radius: 18px;
+  }
+
+  .rr-scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .rr-scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rr-dot {
+    animation: rr-dot 1.25s ease-in-out infinite;
+  }
+}
+
+@keyframes rr-dot {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
