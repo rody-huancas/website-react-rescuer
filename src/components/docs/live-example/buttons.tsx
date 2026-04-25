@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/utils/cn";
 
 export const PrimaryButton = ({ children, onClick, disabled }: { children: ReactNode; onClick: () => void; disabled?: boolean }) => (
   <button
@@ -27,11 +28,9 @@ export const FooterButton = ({ children, onClick, icon, pressed }: { children: R
     type="button"
     onClick={onClick}
     aria-pressed={pressed}
-    className={`inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-[12px] font-bold uppercase tracking-[0.14em] transition-all ${
-      pressed
-        ? "border-(--rr-accent)/55 bg-(--rr-accent)/12 text-(--rr-accent)"
-        : "border-white/10 bg-white/3 text-white/75 hover:bg-white/5 hover:text-white"
-    }`}
+    className={cn("inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-[12px] font-bold uppercase tracking-[0.14em] transition-all",
+      pressed ? "border-(--rr-accent)/55 bg-(--rr-accent)/12 text-(--rr-accent)" : "border-white/10 bg-white/3 text-white/75 hover:bg-white/5 hover:text-white"
+    )}
   >
     {icon}
     {children}

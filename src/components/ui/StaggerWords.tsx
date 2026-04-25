@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { cn } from "@/utils/cn";
 
 interface Props {
   text          : string;
@@ -19,7 +20,7 @@ const StaggerWords = ({ text, wordClassName, wordStyle }: Props) => {
           >
             <span
               data-rr-stagger-word
-              className={`inline-block will-change-transform ${wordClassName ?? ""}`}
+              className={cn("inline-block will-change-transform", wordClassName)}
               style={wordStyle}
             >
               {word}

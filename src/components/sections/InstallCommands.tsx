@@ -5,6 +5,7 @@ import { FiCopy, FiCheck } from "react-icons/fi";
 import useClipboardCopy from "@/hooks/useClipboardCopy";
 import { buildInstallCommands } from "@/utils/install";
 import { REACT_RESCUER_PACKAGE_NAME } from "@/constants/install";
+import { cn } from "@/utils/cn";
 
 const InstallCommands = () => {
   const options = useMemo(
@@ -35,9 +36,9 @@ const InstallCommands = () => {
                 <button
                   key={o.key}
                   onClick={() => setActive(idx)}
-                  className={`relative pb-3 text-[12px] font-semibold transition-colors cursor-pointer outline-none ${
+                  className={cn("relative pb-3 text-[12px] font-semibold transition-colors cursor-pointer outline-none",
                     idx === active ? "text-[#00F2FE]" : "text-white/80 hover:text-white"
-                  }`}
+                  )}
                   data-rr-install-tab
                 >
                   {o.key}
@@ -67,10 +68,9 @@ const InstallCommands = () => {
             <button
               onClick={onCopy}
               data-rr-install-copy
-              className={`
-                absolute right-5 p-2 rounded-md transition-all duration-200 cursor-pointer
-                ${ copied ? "text-[#00F2FE]" : "text-white/20 hover:text-white/80" }
-              `}
+              className={cn("absolute right-5 p-2 rounded-md transition-all duration-200 cursor-pointer",
+                copied ? "text-[#00F2FE]" : "text-white/20 hover:text-white/80"
+              )}
             >
               {copied ? <FiCheck size={18} /> : <FiCopy size={18} />}
             </button>

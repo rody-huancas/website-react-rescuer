@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/utils/cn";
 import { typeColor } from "@/utils/propTable";
 
 export type PropRow = {
@@ -38,7 +39,7 @@ const PropTable = ({ title, rows }: Props) => {
                 {r.name}
               </div>
               <div className="py-3 px-0 sm:px-4">
-                <span className={`inline-flex items-center font-mono text-xs px-2 py-1 rounded-md whitespace-pre-wrap break-all max-w-45 ${typeColor(r.type)}`}>
+                <span className={cn("inline-flex items-center font-mono text-xs px-2 py-1 rounded-md whitespace-pre-wrap break-all max-w-45", typeColor(r.type))}>
                   {r.type}
                 </span>
                 {r.defaultValue ? (

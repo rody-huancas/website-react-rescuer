@@ -5,6 +5,7 @@ import { Highlight, themes, type RenderProps, type Token } from "prism-react-ren
 import { FiCopy, FiCheck } from "react-icons/fi";
 import { normalizeCode, normalizeLang } from "@/utils/code";
 import useClipboardCopy from "@/hooks/useClipboardCopy";
+import { cn } from "@/utils/cn";
 
 export type CodeTab = {
   label    : string;
@@ -73,11 +74,9 @@ const CodeBlock = ({ code, language, filename, title, tabs, wrap = false, showLi
                 key={`${t.label}-${idx}`}
                 type="button"
                 onClick={() => setActive(idx)}
-                className={`rounded-full px-3 py-1.5 text-[12px] font-semibold transition-colors ${
-                  idx === active
-                    ? "bg-white/8 text-white"
-                    : "text-white/55 hover:text-white/85"
-                }`}
+                className={cn("rounded-full px-3 py-1.5 text-[12px] font-semibold transition-colors",
+                  idx === active ? "bg-white/8 text-white" : "text-white/55 hover:text-white/85"
+                )}
               >
                 {t.label}
               </button>
@@ -99,9 +98,9 @@ const CodeBlock = ({ code, language, filename, title, tabs, wrap = false, showLi
 
             return (
               <pre
-                className={`${className} rounded-xl p-4 text-[13.5px] leading-relaxed ${
+                className={cn(className, "rounded-xl p-4 text-[13.5px] leading-relaxed",
                   wrap ? "overflow-x-hidden whitespace-pre-wrap wrap-break-word" : "overflow-x-auto whitespace-pre"
-                }`}
+                )}
                 style={{
                   ...style,
                   margin: 0,
@@ -141,9 +140,7 @@ const CodeBlock = ({ code, language, filename, title, tabs, wrap = false, showLi
         <button
           type="button"
           onClick={onCopy}
-          className={`ml-auto rounded-md p-2 transition-colors ${
-            copied ? "text-(--rr-accent)" : "text-white/30 hover:text-white/80"
-          }`}
+          className={cn("ml-auto rounded-md p-2 transition-colors", copied ? "text-(--rr-accent)" : "text-white/30 hover:text-white/80")}
           aria-label="Copiar codigo"
         >
           {copied ? <FiCheck size={18} /> : <FiCopy size={18} />}
