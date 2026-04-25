@@ -3,6 +3,7 @@
 import Link from "next/link";
 import docsNav from "@/lib/docs/nav";
 import useHash from "@/hooks/useHash";
+import { cn } from "@/utils/cn";
 
 const DocsSidebar = () => {
   const hash = useHash();
@@ -26,9 +27,9 @@ const DocsSidebar = () => {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className={`block rounded-xl px-3 py-2 text-sm transition-colors ${
+                      className={cn("block rounded-xl px-3 py-2 text-sm transition-colors",
                         active ? "bg-white/5 text-(--rr-fg)" : "text-white/80 hover:bg-white/5 hover:text-white"
-                      }`}
+                      )}
                     >
                       {item.title}
                     </Link>
