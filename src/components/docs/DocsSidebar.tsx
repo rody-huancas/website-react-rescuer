@@ -9,7 +9,7 @@ const DocsSidebar = () => {
 
   return (
     <aside className="hidden lg:block">
-      <div className="sticky top-[104px]">
+      <div className="sticky top-26">
         <div className="rounded-2xl border border-white/5 bg-black/25 p-4 backdrop-blur">
           {docsNav.map((group) => (
             <div key={group.title} className="mb-5 last:mb-0">
