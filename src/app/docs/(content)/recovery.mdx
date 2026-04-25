@@ -1,0 +1,49 @@
+import CalloutBox from "@/components/docs/CalloutBox";
+
+<h2 id="recovery">Recovery / reintentos (`recovery`)</h2>
+
+`recovery` es opcional. Si lo provees, `resetError()` aplica una politica de reintentos:
+
+- `maxRetries`: maximo numero de intentos.
+- `retryDelay`: delay antes de resetear. Puede ser:
+  - `number`: delay fijo.
+  - `function(attempt, error)`: delay dinamico.
+- `isRecoverable`: si retorna `false`, `resetError()` hace reset inmediato (no cuenta como retry).
+- `onMaxRetriesReached`: se llama cuando se supera el maximo; en ese caso NO se resetea (te quedas en fallback).
+
+<h3 id="backoff">Ejemplo con backoff simple</h3>
+
+```tsx
+import { ErrorBoundary } from "react-rescuer";
+
+export function Demo() {
+  return (
+    <ErrorBoundary
+      recovery={{
+        maxRetries: 3,
+        retryDelay: (attempt) => Math.min(1000, 200 * 2 ** (attempt - 1)),
+      }}
+      fallbackRender={({ error, resetError, retryCount }) => (
+        <div>
+          <div>{error.message}</div>
+          <div>retryCount: {retryCount}</div>
+          <button onClick={resetError}>Retry</button>
+        </div>
+      )}
+    >
+      <Page />
+    </ErrorBoundary>
+  );
+}
+```
+
+<h3 id="retry-count">Como se interpreta `retryCount`</h3>
+
+- Empieza en `0`.
+- Se incrementa cuando `resetError()` inicia un retry permitido.
+- Se resetea a `0` cuando el reset es imperative o por `resetKeys`.
+
+<CalloutBox kind="warning" title="Max retries">
+  Si superas `maxRetries`, el boundary se queda en el fallback y se dispara
+  `onMaxRetriesReached`.
+</CalloutBox>
