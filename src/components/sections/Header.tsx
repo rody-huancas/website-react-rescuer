@@ -3,10 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
-import { HEADER_NAV } from "@/constants/nav";
 import useHeaderAnimations from "@/hooks/useHeaderAnimations";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
-import { SiNpm, SiGithub, SiBookstack, SiCodeblocks } from "react-icons/si";
+import { SiNpm, SiGithub } from "react-icons/si";
 
 const Header = () => {
   const rootRef = useRef<HTMLElement | null>(null);
@@ -54,48 +53,29 @@ const Header = () => {
             />
           </Link>
 
-          <nav className="hidden items-center md:flex">
-            {HEADER_NAV.map((item, index) => {
-              const icons = [SiBookstack, SiCodeblocks, SiGithub];
-              const labels = ["Documentación", "Ejemplos", "GitHub"];
-              const Icon = icons[index];
-              const cls =
-                "rounded-full p-2.5 text-white/55 transition-colors hover:text-white";
+          <div className="flex items-center gap-2">
+            <a
+              href="https://github.com/rody-huancas/react-rescuer"
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-[12px] font-bold tracking-tight transition-all duration-300 hover:border-white/25 hover:text-white"
+              data-rr-nav-item
+            >
+              <SiGithub size={18} className="text-white/55 group-hover:text-white" />
+              <span className="text-white/55 group-hover:text-white">GitHub</span>
+            </a>
 
-              if (item.external) {
-                return (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={cls}
-                    aria-label={labels[index]}
-                    data-rr-nav-item
-                  >
-                    <Icon size={18} />
-                  </a>
-                );
-              }
-
-              return (
-                <a key={item.href} href={item.href} className={cls} aria-label={labels[index]} data-rr-nav-item>
-                  <Icon size={18} />
-                </a>
-              );
-            })}
-          </nav>
-
-          <a
-            href="https://www.npmjs.com/package/react-rescuer"
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center gap-2.5 rounded-full border border-(--rr-accent)/40 px-5 py-2 text-[12px] font-bold tracking-tight transition-all duration-300 hover:border-(--rr-accent)/80 hover:text-(--rr-accent)"
-            data-rr-badge
-          >
-            <SiNpm size={20} className="transition-colors text-(--rr-accent)/80 group-hover:text-(--rr-accent)" />
-            <span className="text-(--rr-accent)/80 group-hover:text-(--rr-accent)">v0.1.1</span>
-          </a>
+            <a
+              href="https://www.npmjs.com/package/react-rescuer"
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center gap-2.5 rounded-full border border-(--rr-accent)/40 px-5 py-2 text-[12px] font-bold tracking-tight transition-all duration-300 hover:border-(--rr-accent)/80 hover:text-(--rr-accent)"
+              data-rr-badge
+            >
+              <SiNpm size={20} className="transition-colors text-(--rr-accent)/80 group-hover:text-(--rr-accent)" />
+              <span className="text-(--rr-accent)/80 group-hover:text-(--rr-accent)">v0.1.1</span>
+            </a>
+          </div>
         </div>
       </div>
     </header>
