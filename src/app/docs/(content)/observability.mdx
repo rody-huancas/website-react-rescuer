@@ -1,0 +1,84 @@
+import CalloutBox from "@/components/docs/CalloutBox";
+
+<h2 id="observability">Observabilidad (opcional)</h2>
+
+La observabilidad esta fuera del core; se integra con:
+
+- `contextBuilder`
+- o (`getBreadcrumbs` + `fingerprint`)
+
+<h3 id="build-error-context">1) buildErrorContext (la opcion mas directa)</h3>
+
+`buildErrorContext` arma un `ErrorContext` usando:
+
+- breadcrumbs desde `getBreadcrumbTrail().get()` por defecto (o tu `getBreadcrumbs`)
+- fingerprint desde `fingerprintError` por defecto (o tu `fingerprint`)
+- component stack desde `errorInfo.componentStack`
+
+```tsx
+import { ErrorBoundary } from "react-rescuer";
+import { addBreadcrumb, buildErrorContext } from "react-rescuer/observability";
+
+export function Demo() {
+  return (
+    <ErrorBoundary
+      contextBuilder={buildErrorContext}
+      onError={(_err, _info, ctx) => {
+        console.log("ErrorContext", ctx);
+      }}
+      fallback={<div>Mira la consola</div>}
+    >
+      <button
+        type="button"
+        onClick={() => addBreadcrumb({ type: "custom", message: "click" })}
+      >
+        Agregar breadcrumb
+      </button>
+    </ErrorBoundary>
+  );
+}
+```
+
+<h3 id="breadcrumb-trail">
+  2) BreadcrumbTrail: breadcrumbs automaticos (click + navigation)
+</h3>
+
+`BreadcrumbTrail` (singleton) captura:
+
+- clicks (en capture) con un descriptor simple del elemento
+- navegacion (popstate y monkeypatch de `history.pushState`/`replaceState`)
+
+Tambien limpia la cola cuando ocurre un reset, escuchando `react-rescuer:reset`.
+
+Uso:
+
+```ts
+import { getBreadcrumbTrail } from "react-rescuer/observability";
+
+const trail = getBreadcrumbTrail();
+trail.add({ type: "custom", message: "algo paso" });
+
+const breadcrumbs = trail.get();
+```
+
+`addBreadcrumb` es un helper:
+
+```ts
+import { addBreadcrumb } from "react-rescuer/observability";
+
+addBreadcrumb({ type: "custom", message: "user clicked" });
+```
+
+<h3 id="fingerprinting">3) Fingerprinting</h3>
+
+`fingerprintError(error)` genera un hash deterministico (djb2) basado en:
+
+- `error.name`
+- las primeras 3 lineas del stack
+
+Puedes proveer tu propio `fingerprint` si necesitas otra estrategia.
+
+<CalloutBox kind="tip" title="ContextBuilder vs helpers">
+  Si ya tienes un pipeline de breadcrumbs/fingerprint, puedes inyectarlo con
+  `getBreadcrumbs` y `fingerprint`.
+</CalloutBox>

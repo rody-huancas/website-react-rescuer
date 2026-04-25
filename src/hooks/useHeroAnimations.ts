@@ -123,7 +123,7 @@ const useHeroAnimations = ({ rootRef, prefersReducedMotion }: Props) => {
           const s = gsap.quickTo(b, "scale", { duration: 0.22, ease: "power2.out" });
           const y = gsap.quickTo(b, "y", { duration: 0.22, ease: "power2.out" });
 
-          const sheen = b.querySelector<HTMLElement>("[data-rr-sheen]");
+          const sheen   = b.querySelector<HTMLElement>("[data-rr-sheen]");
           const content = b.querySelector<HTMLElement>("[data-rr-btn-content]");
 
           if (sheen) {

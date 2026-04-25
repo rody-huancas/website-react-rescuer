@@ -1,0 +1,31 @@
+import CalloutBox from "@/components/docs/CalloutBox";
+
+<h2 id="key-concepts">Conceptos clave</h2>
+
+<h3 id="render-only">1) Error boundaries solo atrapan errores de render</h3>
+
+- Atrapan errores que ocurren durante render, lifecycle y constructors en el arbol hijo.
+- No atrapan errores de handlers/eventos o async por defecto.
+
+<h3 id="async-errors">
+  2) Para errores async/eventos, usa `useErrorBoundary()`
+</h3>
+
+- Este hook permite "elevar" un error al boundary mas cercano llamando `showBoundary(error)`.
+
+<h3 id="error-context">
+  3) Cuando un boundary atrapa un error, crea un `ErrorContext`
+</h3>
+
+`ErrorContext` es el objeto que se pasa a fallbacks y al callback `onError`.
+
+<h3 id="reset-and-recovery">4) Reset y recovery</h3>
+
+- `resetError()` resetea el boundary.
+- `resetKeys` resetea automaticamente cuando cambia el array.
+- `recovery` habilita reintentos con limite y delay/backoff.
+
+<CalloutBox kind="warning" title="Errores async no se capturan solos">
+  Si un error ocurre en un handler o una promesa, usa `useErrorBoundary()` para
+  elevarlo al boundary mas cercano.
+</CalloutBox>

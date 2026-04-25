@@ -1,0 +1,21 @@
+import CalloutBox from "@/components/docs/CalloutBox";
+
+<h2 id="dev-overlay">Dev overlay (desarrollo)</h2>
+
+En `development` (segun `process.env.NODE_ENV`), `ErrorBoundary` intenta renderizar un overlay integrado usando un
+`require()` condicional.
+
+El overlay muestra:
+
+- nombre y mensaje del error
+- stack trace filtrado
+- component stack
+- breadcrumbs
+- boton `retry`
+
+En `production`, siempre se renderiza tu fallback configurado.
+
+<CalloutBox kind="info" title="Produccion">
+  En produccion, el comportamiento es estable: siempre se muestra el fallback
+  que configures.
+</CalloutBox>

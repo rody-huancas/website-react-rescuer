@@ -1,0 +1,5 @@
+<h2 id="limitations">Notas y limitaciones</h2>
+
+- Los boundaries no atrapan errores de eventos/async por defecto: usa `useErrorBoundary()`.
+- Si configuras `recovery` y superas `maxRetries`, el boundary se queda en el fallback (y se dispara `onMaxRetriesReached`).
+- BreadcrumbTrail modifica `history.pushState` y `history.replaceState` cuando se inicia; puedes `stop()` si no lo quieres.

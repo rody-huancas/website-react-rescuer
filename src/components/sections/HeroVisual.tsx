@@ -4,7 +4,7 @@ const HeroVisual = () => {
   return (
     <div
       data-rr-visual
-      className="relative mx-auto w-full lg:max-w-[760px] xl:w-[480px]"
+      className="relative mx-auto w-full lg:max-w-190 xl:w-120"
     >
       <div className="pointer-events-none absolute -inset-10 rounded-[44px] opacity-55 blur-2xl">
         <div

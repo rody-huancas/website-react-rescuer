@@ -1,0 +1,52 @@
+<h2 id="testing">Testing</h2>
+
+<h3 id="create-test-boundary">createTestBoundary()</h3>
+
+`createTestBoundary()` retorna un wrapper `Boundary` para tests y funciones para inspeccionar lo capturado.
+
+```tsx
+import { createTestBoundary } from "react-rescuer/testing";
+
+const tb = createTestBoundary();
+const { Boundary, getLastError, getLastContext, reset } = tb;
+
+// render(
+//   <Boundary>
+//     <Bomb />
+//   </Boundary>
+// )
+
+// expect(getLastError()).toBeInstanceOf(Error);
+// expect(getLastContext()?.fingerprint).toBeTruthy();
+
+reset();
+```
+
+<h3 id="matchers">Matchers</h3>
+
+La libreria puede registrar matchers personalizados en `expect`:
+
+```ts
+import { installMatchers } from "react-rescuer/testing";
+
+installMatchers();
+```
+
+Matchers incluidos:
+
+- `toHaveCaughtError()`
+- `toHaveCaughtErrorMatching(pattern)`
+
+Uso:
+
+```ts
+import { createTestBoundary, installMatchers } from "react-rescuer/testing";
+
+installMatchers();
+
+const tb = createTestBoundary();
+// render con tb.Boundary...
+
+// expect(tb).toHaveCaughtError();
+// expect(tb).toHaveCaughtErrorMatching(/boom/);
+```

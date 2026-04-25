@@ -1,0 +1,109 @@
+import CalloutBox from "@/components/docs/CalloutBox";
+import PropTable from "@/components/docs/PropTable";
+
+<h2 id="hooks">Hooks</h2>
+
+<h3 id="use-error-boundary">useErrorBoundary()</h3>
+
+Para errores fuera de render (eventos, async, promesas):
+
+<PropTable
+  title="Firma"
+  rows={[
+    {
+      name: "useErrorBoundary",
+      type: "() => { showBoundary }",
+      required: true,
+      description: "Retorna un objeto con `showBoundary(error)` para elevar el error al boundary mas cercano.",
+    },
+  ]}
+/>
+
+```tsx
+import { ErrorBoundary } from "react-rescuer";
+import { useErrorBoundary } from "react-rescuer/hooks";
+
+function SaveButton() {
+  const { showBoundary } = useErrorBoundary();
+
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        try {
+          await fetch("/api/save");
+          throw new Error("error async");
+        } catch (e) {
+          showBoundary(e as Error);
+        }
+      }}
+    >
+      Save
+    </button>
+  );
+}
+
+export function Demo() {
+  return (
+    <ErrorBoundary fallback={<div>Fallback</div>}>
+      <SaveButton />
+    </ErrorBoundary>
+  );
+}
+```
+
+Como funciona
+
+- `showBoundary(error)` guarda el error en state y en el siguiente render lo vuelve a lanzar (`throw`).
+- Ese throw ocurre en render, asi que el ErrorBoundary mas cercano lo atrapa.
+
+<h3 id="use-error-context">useErrorContext()</h3>
+
+Para leer el `ErrorContext` dentro de tu fallback.
+
+<PropTable
+  title="Firma"
+  rows={[
+    {
+      name: "useErrorContext",
+      type: "() => ErrorContext",
+      required: true,
+      description: "Retorna el `ErrorContext` del ErrorBoundary que esta renderizando el fallback.",
+    },
+  ]}
+/>
+
+```tsx
+import { ErrorBoundary } from "react-rescuer";
+import { useErrorContext } from "react-rescuer/hooks";
+
+function FallbackWithContext() {
+  const ctx = useErrorContext();
+
+  return (
+    <div>
+      <div>fingerprint: {ctx.fingerprint}</div>
+      <div>sessionId: {ctx.sessionId}</div>
+      <div>errorCount: {ctx.errorCount}</div>
+      <pre>{ctx.componentStack}</pre>
+    </div>
+  );
+}
+
+export function Demo() {
+  return (
+    <ErrorBoundary FallbackComponent={FallbackWithContext}>
+      <Page />
+    </ErrorBoundary>
+  );
+}
+```
+
+Nota
+
+- Si lo llamas fuera de un fallback de `ErrorBoundary`, lanza un error.
+- Internamente usa un contexto global (via `globalThis`) para evitar problemas si hay multiples instancias del paquete.
+
+<CalloutBox kind="warning" title="Regla">
+  `useErrorContext()` es para fallbacks (dentro de `ErrorBoundary`).
+</CalloutBox>

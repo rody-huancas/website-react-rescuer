@@ -2,33 +2,25 @@
 
 import { useMemo, useState } from "react";
 import { FiCopy, FiCheck } from "react-icons/fi";
+import useClipboardCopy from "@/hooks/useClipboardCopy";
+import { buildInstallCommands } from "@/utils/install";
+import { REACT_RESCUER_PACKAGE_NAME } from "@/constants/install";
 
 const InstallCommands = () => {
   const options = useMemo(
-    () => [
-      { key: "pnpm", cmd: "pnpm add react-rescuer" },
-      { key: "npm", cmd: "npm i react-rescuer" },
-      { key: "yarn", cmd: "yarn add react-rescuer" },
-      { key: "bun", cmd: "bun add react-rescuer" },
-    ],
+    () => buildInstallCommands(REACT_RESCUER_PACKAGE_NAME),
     [],
   );
 
   const [active, setActive] = useState(0);
-  const [copied, setCopied] = useState(false);
+  const { copied, copy } = useClipboardCopy({ timeoutMs: 1300 });
   const cmd = options[active].cmd;
 
-  const onCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(cmd);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1300);
-    } catch {}
-  };
+  const onCopy = () => copy(cmd);
 
   return (
     <div data-rr-install-card className="flex justify-center py-8 w-full">
-      <div className="w-full max-w-[500px]">
+      <div className="w-full max-w-125">
         <div
           className="rounded-xl overflow-hidden shadow-2xl"
           data-rr-install-shell
@@ -52,7 +44,7 @@ const InstallCommands = () => {
 
                   {idx === active && (
                     <div
-                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#00F2FE]"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#00F2FE]"
                       style={{ boxShadow: "0 0 8px rgba(0, 242, 254, 0.4)" }}
                     />
                   )}

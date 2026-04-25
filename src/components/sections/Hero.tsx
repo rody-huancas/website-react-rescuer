@@ -20,13 +20,13 @@ const Hero = () => {
       <div className="pointer-events-none absolute inset-0">
         <div
           data-rr-spotlight
-          className="absolute left-1/2 top-[40%] h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-55 blur-3xl"
+          className="absolute left-1/2 top-[40%] h-225 w-225 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-55 blur-3xl"
           style={{
             background: "radial-gradient(circle at 30% 35%, color-mix(in oklab, var(--rr-accent), transparent 88%), transparent 60%)",
           }}
         />
         <div
-          className="absolute left-[18%] top-[65%] h-[760px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-3xl"
+          className="absolute left-[18%] top-[65%] h-190 w-190 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-3xl"
           style={{
             background: "radial-gradient(circle at 55% 45%, color-mix(in oklab, var(--rr-cyan), transparent 90%), transparent 62%)",
           }}
@@ -162,7 +162,7 @@ const Hero = () => {
               <div data-rr-rig className="relative min-w-0">
                 <div
                   data-rr-halo
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-3xl"
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-h-155 w-h-155 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-3xl"
                   style={{
                     background: "radial-gradient(circle at 30% 30%, color-mix(in oklab, var(--rr-accent), transparent 55%), transparent 66%)"
                   }}

@@ -1,0 +1,69 @@
+import CalloutBox from "@/components/docs/CalloutBox";
+
+<h2 id="quick-start">Guia rapida (30-60 segundos)</h2>
+
+<h3 id="wrap">1) Envuelve una ruta/seccion</h3>
+
+```tsx
+import { ErrorBoundary } from "react-rescuer";
+
+export function App() {
+  return (
+    <ErrorBoundary fallback={<div>Algo salio mal.</div>}>
+      <Page />
+    </ErrorBoundary>
+  );
+}
+```
+
+<h3 id="fallback">2) Usa un fallback real con boton de reset</h3>
+
+```tsx
+import { ErrorBoundary } from "react-rescuer";
+import type { FallbackProps } from "react-rescuer";
+
+function Fallback({ error, resetError }: FallbackProps) {
+  return (
+    <div role="alert">
+      <div>Oops:</div>
+      <pre>{error.message}</pre>
+      <button type="button" onClick={resetError}>
+        Reintentar
+      </button>
+    </div>
+  );
+}
+
+export function App() {
+  return (
+    <ErrorBoundary FallbackComponent={Fallback}>
+      <Page />
+    </ErrorBoundary>
+  );
+}
+```
+
+<h3 id="reporting">3) (Opcional) Reporta el error con contexto</h3>
+
+```tsx
+import { ErrorBoundary } from "react-rescuer";
+
+export function App() {
+  return (
+    <ErrorBoundary
+      onError={(error, _info, ctx) => {
+        // Envia a Sentry/Datadog/tu API
+        console.log("caught", { error, ctx });
+      }}
+      fallback={<div>Algo salio mal.</div>}
+    >
+      <Page />
+    </ErrorBoundary>
+  );
+}
+```
+
+<CalloutBox kind="tip" title="Fallbacks">
+  `fallback`, `fallbackRender` y `FallbackComponent` son intercambiables: elige
+  el que mejor calce con tu UI.
+</CalloutBox>
