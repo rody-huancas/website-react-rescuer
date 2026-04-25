@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Poppins } from "next/font/google";
 import Header from "@/components/sections/Header";
+import Providers from "./providers";
+import { cn } from "@/utils/cn";
 import "@/styles/globals.css";
 
 const geistMono = Geist_Mono({
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <html
     lang="es"
-    className={`${poppins.variable} ${geistMono.variable} h-full antialiased rr-preload`}
+    className={cn(poppins.variable, geistMono.variable, "h-full antialiased rr-preload")}
   >
     <head>
       <style
@@ -43,11 +45,13 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
       />
     </head>
     <body className="min-h-full flex flex-col overflow-x-hidden">
-      <Header />
+      <Providers>
+        <Header />
        
-      <main className="flex-1">
-        {children}
-      </main>
+        <main className="flex-1">
+          {children}
+        </main>
+      </Providers>
     </body>
   </html>
 );
