@@ -1,0 +1,247 @@
+import CalloutBox from "@/components/docs/CalloutBox";
+import CodeBlock from "@/components/docs/CodeBlock";
+import PropTable from "@/components/docs/PropTable";
+
+<h2 id="error-boundary">ErrorBoundary</h2>
+
+`ErrorBoundary` es el centro de la libreria.
+
+<h3 id="fallback-modes">Modos de fallback (elige uno)</h3>
+
+#### 1) `fallback`: un ReactNode estatico
+
+```tsx
+<ErrorBoundary fallback={<div>Fallback simple</div>}>
+  <Page />
+</ErrorBoundary>
+```
+
+#### 2) `fallbackRender`: render prop (recibe props)
+
+```tsx
+import { ErrorBoundary } from "react-rescuer";
+
+<ErrorBoundary
+  fallbackRender={({ error, errorContext, resetError, retryCount }) => (
+    <div>
+      <div>{error.message}</div>
+      <div>fingerprint: {errorContext.fingerprint}</div>
+      <div>retryCount: {retryCount}</div>
+      <button type="button" onClick={resetError}>
+        Retry
+      </button>
+    </div>
+  )}
+>
+  <Page />
+</ErrorBoundary>;
+```
+
+#### 3) `FallbackComponent`: componente de fallback
+
+```tsx
+import { ErrorBoundary } from "react-rescuer";
+import type { FallbackProps } from "react-rescuer";
+
+function FallbackUI({ error, resetError }: FallbackProps) {
+  return (
+    <div>
+      <div>Error: {error.message}</div>
+      <button onClick={resetError}>Reset</button>
+    </div>
+  );
+}
+
+<ErrorBoundary FallbackComponent={FallbackUI}>
+  <Page />
+</ErrorBoundary>;
+```
+
+<h3 id="internals">Que ocurre internamente cuando se atrapa un error</h3>
+
+Cuando un hijo falla durante render:
+
+1. React llama `componentDidCatch(error, errorInfo)`.
+2. El boundary incrementa su contador interno `errorCount`.
+3. Construye `boundaryProps` (snapshot de configuracion) y genera un `ErrorContext`.
+4. Llama `onError?.(error, errorInfo, errorContext)`.
+5. Renderiza el fallback elegido (y provee `ErrorContext` via React context para `useErrorContext`).
+
+<CalloutBox kind="info" title="level / isolate">
+  Existen como props y se incluyen dentro del `boundaryProps` que termina dentro
+  de `ErrorContext`. Hoy no cambian el comportamiento de captura/reset; puedes
+  usarlos como metadata.
+</CalloutBox>
+
+<h3 id="api">API reference</h3>
+
+<PropTable
+  title="ErrorBoundaryProps"
+  rows={[
+    {
+      name: "children",
+      type: "React.ReactNode",
+      required: true,
+      description: "Arbol hijo a proteger.",
+    },
+    {
+      name: "level",
+      type: "ErrorBoundaryLevel",
+      required: false,
+      description: "Metadata: page | section | component.",
+    },
+    {
+      name: "isolate",
+      type: "boolean",
+      required: false,
+      description: "Metadata que se incluye en boundaryProps.",
+    },
+    {
+      name: "resetKeys",
+      type: "unknown[]",
+      required: false,
+      description:
+        "Resetea automaticamente cuando cambia (Object.is por elemento).",
+    },
+    {
+      name: "FallbackComponent",
+      type: "React.ComponentType<FallbackProps>",
+      required: false,
+      description: "Componente de fallback.",
+    },
+    {
+      name: "fallbackRender",
+      type: "(props: FallbackProps) => React.ReactNode",
+      required: false,
+      description: "Render prop para fallback.",
+    },
+    {
+      name: "fallback",
+      type: "React.ReactNode",
+      required: false,
+      description: "Fallback estatico.",
+    },
+    {
+      name: "onError",
+      type: "(error, errorInfo, errorContext) => void",
+      required: false,
+      description: "Callback de captura para reporting.",
+    },
+    {
+      name: "onReset",
+      type: "(details: { reason: ResetReason }) => void",
+      required: false,
+      description: "Callback en cada reset.",
+    },
+    {
+      name: "recovery",
+      type: "RecoveryStrategy",
+      required: false,
+      description: "Habilita reintentos con limite y delay.",
+    },
+    {
+      name: "getBreadcrumbs",
+      type: "() => Breadcrumb[]",
+      required: false,
+      description: "Inyeccion de breadcrumbs (opcional).",
+    },
+    {
+      name: "fingerprint",
+      type: "(error) => string",
+      required: false,
+      description: "Estrategia de fingerprint (opcional).",
+    },
+    {
+      name: "contextBuilder",
+      type: "(error, errorInfo, options) => ErrorContext",
+      required: false,
+      description: "Builder para ErrorContext (opcional).",
+    },
+  ]}
+/>
+
+<PropTable
+  title="FallbackProps"
+  rows={[
+    {
+      name: "error",
+      type: "E extends Error",
+      required: true,
+      description: "Error capturado.",
+    },
+    {
+      name: "errorContext",
+      type: "ErrorContext",
+      required: true,
+      description: "Contexto estructurado del error.",
+    },
+    {
+      name: "resetError",
+      type: "() => void",
+      required: true,
+      description: "Resetea el boundary (o inicia retry si hay recovery).",
+    },
+    {
+      name: "retryCount",
+      type: "number",
+      required: true,
+      description: "Numero de reintentos realizados.",
+    },
+  ]}
+/>
+
+<PropTable
+  title="RecoveryStrategy"
+  rows={[
+    {
+      name: "maxRetries",
+      type: "number",
+      required: true,
+      description: "Maximo numero de intentos.",
+    },
+    {
+      name: "retryDelay",
+      type: "number | ((attempt, error) => number)",
+      required: false,
+      description: "Delay fijo o dinamico antes del retry.",
+    },
+    {
+      name: "isRecoverable",
+      type: "(error) => boolean",
+      required: false,
+      description:
+        "Si retorna false, resetError hace reset inmediato (no cuenta como retry).",
+    },
+    {
+      name: "onMaxRetriesReached",
+      type: "(error, context) => void",
+      required: false,
+      description: "Se llama al superar el maximo; en ese caso NO se resetea.",
+    },
+  ]}
+/>
+
+<h3 id="types">Tipos base</h3>
+
+```ts
+export type ErrorBoundaryLevel = "page" | "section" | "component";
+export type BreadcrumbType = "click" | "navigation" | "custom";
+
+export type Breadcrumb = {
+  type: BreadcrumbType;
+  timestamp: number;
+  message?: string;
+  data?: Record<string, unknown>;
+};
+
+export type ErrorContext = {
+  error: Error;
+  fingerprint: string;
+  breadcrumbs: Breadcrumb[];
+  componentStack: string;
+  timestamp: number;
+  sessionId: string;
+  errorCount: number;
+  boundaryProps?: unknown;
+};
+```
