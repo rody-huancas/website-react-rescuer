@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { HEADER_NAV } from "@/constants/nav";
 import useHeaderAnimations from "@/hooks/useHeaderAnimations";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
-import { SiNpm } from "react-icons/si";
+import { SiNpm, SiGithub, SiBookstack, SiCodeblocks } from "react-icons/si";
 
 const Header = () => {
   const rootRef = useRef<HTMLElement | null>(null);
@@ -55,28 +55,32 @@ const Header = () => {
           </Link>
 
           <nav className="hidden items-center md:flex">
-            {HEADER_NAV.map((item) => {
+            {HEADER_NAV.map((item, index) => {
+              const icons = [SiBookstack, SiCodeblocks, SiGithub];
+              const labels = ["Documentación", "Ejemplos", "GitHub"];
+              const Icon = icons[index];
               const cls =
-                "rounded-full px-4 py-2 text-[13px] font-medium text-white/55 transition-colors hover:text-white";
+                "rounded-full p-2.5 text-white/55 transition-colors hover:text-white";
 
               if (item.external) {
                 return (
                   <a
-                    key={item.label}
+                    key={item.href}
                     href={item.href}
                     target="_blank"
                     rel="noreferrer"
                     className={cls}
+                    aria-label={labels[index]}
                     data-rr-nav-item
                   >
-                    {item.label}
+                    <Icon size={18} />
                   </a>
                 );
               }
 
               return (
-                <a key={item.label} href={item.href} className={cls} data-rr-nav-item>
-                  {item.label}
+                <a key={item.href} href={item.href} className={cls} aria-label={labels[index]} data-rr-nav-item>
+                  <Icon size={18} />
                 </a>
               );
             })}
