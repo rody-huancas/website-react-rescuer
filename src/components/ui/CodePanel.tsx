@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Highlight, themes, type Language, type RenderProps, type Token } from "prism-react-renderer";
+import { cn } from "@/utils/cn";
 import { FiCopy, FiCheck } from "react-icons/fi";
 
 export type CodePanelTab = {
@@ -74,11 +75,9 @@ const CodePanel = ({ tabs, title, filename, showLineNumbers = true, wrap = false
                 key={`${t.label}-${idx}`}
                 type="button"
                 onClick={() => setActive(idx)}
-                className={`rounded-full px-3 py-1.5 text-[12px] font-semibold transition-colors ${
-                  idx === active
-                    ? "bg-white/8 text-white"
-                    : "text-white/55 hover:text-white/85"
-                }`}
+                className={cn("rounded-full px-3 py-1.5 text-[12px] font-semibold transition-colors",
+                  idx === active ? "bg-white/8 text-white" : "text-white/55 hover:text-white/85"
+                )}
               >
                 {t.label}
               </button>
@@ -109,9 +108,9 @@ const CodePanel = ({ tabs, title, filename, showLineNumbers = true, wrap = false
 
             return (
               <pre
-                className={`${className} rounded-xl bg-black/55 p-4 text-[13.5px] leading-relaxed ${
+                className={cn(className, "rounded-xl bg-black/55 p-4 text-[13.5px] leading-relaxed",
                   wrap ? "overflow-x-hidden whitespace-pre-wrap wrap-break-word" : "rr-scrollbar-none overflow-x-auto whitespace-pre"
-                }`}
+                )}
                 data-rr-codepanel-pre
                 style={{ ...style, background: "transparent", margin: 0 }}
               >
@@ -156,9 +155,9 @@ const CodePanel = ({ tabs, title, filename, showLineNumbers = true, wrap = false
         <button
           type="button"
           onClick={onCopy}
-          className={`ml-auto rounded-md p-2 transition-all duration-200 cursor-pointer ${
+          className={cn("ml-auto rounded-md p-2 transition-all duration-200 cursor-pointer",
             copied ? "text-(--rr-accent)" : "text-white/25 hover:text-white/80"
-          }`}
+          )}
           aria-label="Copiar codigo"
         >
           {copied ? <FiCheck size={18} /> : <FiCopy size={18} />}
