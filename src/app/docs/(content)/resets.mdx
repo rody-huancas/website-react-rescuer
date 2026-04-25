@@ -1,0 +1,54 @@
+import CalloutBox from "@/components/docs/CalloutBox";
+
+<h2 id="resets">Resets</h2>
+
+<h3 id="reset-error">Reset manual: `resetError()`</h3>
+
+- `resetError()` viene en los props del fallback.
+- Si no configuraste `recovery`, `resetError()` hace reset inmediato.
+- Si configuraste `recovery`, `resetError()` puede convertirse en "intento de recovery".
+
+<h3 id="reset-keys">Reset automatico: `resetKeys`</h3>
+
+Cuando `resetKeys` cambia (comparacion por elemento con `Object.is`), el boundary resetea con reason `"resetKeys"`.
+
+```tsx
+import { useState } from "react";
+import { ErrorBoundary } from "react-rescuer";
+
+function Bomb({ armed }: { armed: boolean }) {
+  if (armed) throw new Error("boom");
+  return <div>OK</div>;
+}
+
+export function Demo() {
+  const [armed, setArmed] = useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setArmed(true)}>Throw</button>
+      <button onClick={() => setArmed(false)}>Reset</button>
+
+      <ErrorBoundary resetKeys={[armed]} fallback={<div>Fallback</div>}>
+        <Bomb armed={armed} />
+      </ErrorBoundary>
+    </div>
+  );
+}
+```
+
+<h3 id="reset-event">
+  Evento de reset para integraciones: `react-rescuer:reset`
+</h3>
+
+En cada reset (imperative, resetKeys, retry), el boundary intenta disparar un evento DOM:
+
+- Event name: `react-rescuer:reset`
+- `detail`: `{ sessionId }`
+
+Esto se usa, por ejemplo, para limpiar breadcrumbs automaticamente.
+
+<CalloutBox kind="tip" title="Integraciones">
+  Si tienes un sistema de breadcrumbs propio, puedes escuchar
+  `react-rescuer:reset` y limpiar tu cola cuando ocurra un reset.
+</CalloutBox>
