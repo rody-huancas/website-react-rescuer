@@ -1,0 +1,8 @@
+<h2 id="intro">Que es y para que sirve</h2>
+
+`react-rescuer` es una libreria para manejar errores en React usando un `ErrorBoundary` (class-based) con:
+
+- Recuperacion: UI de fallback con `resetError()` y (opcionalmente) reintentos controlados.
+- Contexto estructurado: cuando ocurre un error, se construye un `ErrorContext` con fingerprint, breadcrumbs, component stack, session id, etc.
+- Observabilidad opcional: breadcrumbs y fingerprinting desacoplados del core (se integran por inyeccion de funciones).
+- Reporting: un hook `onError(error, errorInfo, errorContext)` para enviar a cualquier herramienta.
