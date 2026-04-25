@@ -15,7 +15,7 @@ const HeroVisual = () => {
         />
       </div>
 
-      <div className="relative">
+      <div data-rr-code-card className="relative">
         <div
           data-rr-grid
           className="pointer-events-none absolute inset-0 rounded-2xl opacity-[0.12]"
@@ -43,6 +43,7 @@ export const App = () => (
 );`,
               },
             ]}
+            title="App.tsx"
             showLineNumbers={false}
             wrap
           />

@@ -2,31 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Highlight, themes, type Language, type RenderProps, type Token } from "prism-react-renderer";
-
-const CopyButton = ({ value }: { value: string }) => {
-  const [copied, setCopied] = useState(false);
-
-  const onCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1100);
-    } catch {
-      setCopied(false);
-    }
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={onCopy}
-      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3 py-1.5 text-[12px] font-semibold text-white/85 transition-colors hover:bg-white/7"
-    >
-      {copied ? "Copiado" : "Copiar"}
-      <span className="text-white/35">⌘C</span>
-    </button>
-  );
-};
+import { FiCopy, FiCheck } from "react-icons/fi";
 
 export type CodePanelTab = {
   label   : string;
@@ -44,15 +20,32 @@ interface Props {
 
 const CodePanel = ({ tabs, title, filename, showLineNumbers = true, wrap = false }: Props) => {
   const [active, setActive] = useState(0);
+  const [copied, setCopied] = useState(false);
   const tab = tabs[active];
 
   const code = useMemo(() => {
     return tab.code.replace(/\s+$/, "");
   }, [tab.code]);
 
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1100);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/8 bg-black/45 shadow-[0_18px_70px_rgba(0,0,0,0.5)]">
-      <div className="flex items-center justify-between border-b border-white/8 bg-black/35 px-4 py-3">
+    <div
+      className="overflow-hidden rounded-2xl border border-white/8 bg-black/45 shadow-[0_18px_70px_rgba(0,0,0,0.5)]"
+      data-rr-codepanel
+    >
+      <div
+        className="flex items-center justify-between border-b border-white/8 bg-black/35 px-4 py-3"
+        data-rr-codepanel-top
+      >
         <div className="flex items-center gap-2">
           <span className="h-2.5 w-2.5 rounded-full bg-red-500 animate-pulse" />
           <span className="h-2.5 w-2.5 rounded-full bg-yellow-500 animate-pulse" />
@@ -70,8 +63,6 @@ const CodePanel = ({ tabs, title, filename, showLineNumbers = true, wrap = false
               {title}
             </div>
           ) : null}
-          
-          <CopyButton value={code} />
         </div>
       </div>
 
@@ -121,6 +112,7 @@ const CodePanel = ({ tabs, title, filename, showLineNumbers = true, wrap = false
                 className={`${className} rounded-xl bg-black/55 p-4 text-[13.5px] leading-relaxed ${
                   wrap ? "overflow-x-hidden whitespace-pre-wrap wrap-break-word" : "rr-scrollbar-none overflow-x-auto whitespace-pre"
                 }`}
+                data-rr-codepanel-pre
                 style={{ ...style, background: "transparent", margin: 0 }}
               >
                 <code className="font-(family-name:--font-geist-mono)">
@@ -154,6 +146,23 @@ const CodePanel = ({ tabs, title, filename, showLineNumbers = true, wrap = false
             );
           }}
         </Highlight>
+      </div>
+
+      <div className="relative flex items-center border-t border-white/8 bg-black/35 px-4 py-3">
+        <div className="font-(family-name:--font-geist-mono) text-[11px] tracking-[0.14em] text-white/55">
+          {copied ? "COPIADO" : "COPIAR"}
+        </div>
+
+        <button
+          type="button"
+          onClick={onCopy}
+          className={`ml-auto rounded-md p-2 transition-all duration-200 cursor-pointer ${
+            copied ? "text-(--rr-accent)" : "text-white/25 hover:text-white/80"
+          }`}
+          aria-label="Copiar codigo"
+        >
+          {copied ? <FiCheck size={18} /> : <FiCopy size={18} />}
+        </button>
       </div>
     </div>
   );

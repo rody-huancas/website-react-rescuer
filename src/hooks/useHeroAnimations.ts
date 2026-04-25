@@ -17,13 +17,25 @@ const useHeroAnimations = ({ rootRef, prefersReducedMotion }: Props) => {
 
       const { gsap } = getGsap();
 
-      const words = gsap.utils.toArray<HTMLElement>(root.querySelectorAll("[data-rr-stagger-word]"));
-      const fades = gsap.utils.toArray<HTMLElement>(root.querySelectorAll("[data-rr-fade]"));
+      const words       = gsap.utils.toArray<HTMLElement>(root.querySelectorAll("[data-rr-stagger-word]"));
+      const fades       = gsap.utils.toArray<HTMLElement>(root.querySelectorAll("[data-rr-fade]"));
+      const codeCard    = root.querySelector<HTMLElement>("[data-rr-code-card]");
+      const installCard = root.querySelector<HTMLElement>("[data-rr-install-card]");
 
       if (!prefersReducedMotion) {
+        document.documentElement.classList.remove("rr-preload");
+
         gsap.set([...words, ...fades], { opacity: 0 });
         gsap.set(words, { y: 30 });
         gsap.set(fades, { y: 14 });
+
+        if (codeCard) {
+          gsap.set(codeCard, { autoAlpha: 0, x: 150 });
+        }
+
+        if (installCard) {
+          gsap.set(installCard, { autoAlpha: 0, y: 95 });
+        }
 
         const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
         tl.to(words, {
@@ -44,6 +56,34 @@ const useHeroAnimations = ({ rootRef, prefersReducedMotion }: Props) => {
           },
           "<+0.15",
         );
+
+        if (codeCard) {
+          tl.to(
+            codeCard,
+            {
+              autoAlpha : 1,
+              x         : 0,
+              duration  : 1.25,
+              ease      : "power3.out",
+              clearProps: "transform,opacity,visibility",
+            },
+            "<+0.05",
+          );
+        }
+
+        if (installCard) {
+          tl.to(
+            installCard,
+            {
+              autoAlpha : 1,
+              y         : 0,
+              duration  : 1.2,
+              ease      : "power3.out",
+              clearProps: "transform,opacity,visibility",
+            },
+            "<+0.12",
+          );
+        }
       }
 
       const rig       = root.querySelector<HTMLElement>("[data-rr-rig]");
