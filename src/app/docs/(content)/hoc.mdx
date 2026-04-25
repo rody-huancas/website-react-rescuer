@@ -1,0 +1,15 @@
+<h2 id="hoc">HOC</h2>
+
+`withErrorBoundary(Component, options)` envuelve un componente con un `ErrorBoundary`.
+
+```tsx
+import { withErrorBoundary } from "react-rescuer/hoc";
+
+function ProfilePage() {
+  return <div>...</div>;
+}
+
+export const SafeProfilePage = withErrorBoundary(ProfilePage, {
+  fallback: <div>Profile fallback</div>,
+});
+```
