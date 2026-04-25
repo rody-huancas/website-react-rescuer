@@ -1,11 +1,12 @@
-import type * as React from "react";
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
+import MdxCodeBlock from "@/components/docs/MdxCodeBlock";
 
 const Anchor = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   const { href = "", className: classNameProp, ...rest } = props;
+
   const isExternal = /^https?:\/\//.test(href);
-  const className  = "underline decoration-white/20 underline-offset-4 transition-colors hover:decoration-(--rr-accent)";
+  const className  = "text-(--rr-accent) underline underline-offset-2 hover:opacity-80 transition-opacity";
   const merged     = `${className} ${classNameProp ?? ""}`;
 
   if (isExternal) {
@@ -29,49 +30,82 @@ const Anchor = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   );
 };
 
-const components = {
-  a: Anchor,
-  h1: (props) => (
-    <h1
-      {...props}
-      className="text-4xl font-bold leading-tight tracking-[-0.03em] sm:text-5xl"
-    />
-  ),
-  h2: (props) => (
-    <h2
-      {...props}
-      className="mt-12 scroll-mt-28 text-2xl font-semibold leading-snug tracking-[-0.02em] sm:text-3xl"
-    />
-  ),
-  h3: (props) => (
-    <h3
-      {...props}
-      className="mt-10 scroll-mt-28 text-xl font-semibold leading-snug"
-    />
-  ),
-  p: (props) => (
-    <p {...props} className="mt-4 text-[15px] leading-relaxed text-(--rr-muted) sm:text-base" />
-  ),
-  ul: (props) => (
-    <ul {...props} className="mt-4 list-disc space-y-2 pl-6 text-(--rr-muted)" />
-  ),
-  ol: (props) => (
-    <ol {...props} className="mt-4 list-decimal space-y-2 pl-6 text-(--rr-muted)" />
-  ),
-  li: (props) => <li {...props} className="leading-relaxed" />,
-  hr: (props) => <hr {...props} className="my-12 border-white/5" />,
-  pre: (props) => (
-    <pre
-      {...props}
-      className="mt-6 overflow-x-auto rounded-2xl border border-white/10 bg-black/35 p-5 text-[13px] leading-relaxed"
-    />
-  ),
-  code: (props) => (
-    <code
-      {...props}
-      className="rounded-md bg-white/5 px-1.5 py-0.5 font-(family-name:--font-geist-mono) text-[0.95em] text-(--rr-fg)"
-    />
-  ),
-} satisfies MDXComponents;
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    ...components,
+    a: Anchor,
+    h1: ({ children, ...props }) => (
+      <h1 className="text-4xl font-black tracking-tight text-white mb-4 mt-2" {...props}>
+        {children}
+      </h1>
+    ),
+    h2: ({ children, ...props }) => (
+      <h2
+        className="text-2xl font-bold text-white mb-4 mt-10 pb-2 border-b border-white/8 scroll-mt-28"
+        {...props}
+      >
+        {children}
+      </h2>
+    ),
+    h3: ({ children, ...props }) => (
+      <h3 className="text-lg font-semibold text-white/90 mb-4 mt-12 scroll-mt-28" {...props}>
+        {children}
+      </h3>
+    ),
+    p: ({ children, ...props }) => (
+      <p className="text-white/60 text-[15px] leading-7 mb-4 max-w-[72ch]" {...props}>
+        {children}
+      </p>
+    ),
+    ul: ({ children, ...props }) => (
+      <ul
+        className="text-white/60 text-[15px] leading-7 mb-4 ml-4 space-y-1.5 list-disc list-outside"
+        {...props}
+      >
+        {children}
+      </ul>
+    ),
+    ol: ({ children, ...props }) => (
+      <ol
+        className="text-white/60 text-[15px] leading-7 mb-4 ml-4 space-y-1.5 list-decimal list-outside"
+        {...props}
+      >
+        {children}
+      </ol>
+    ),
+    li: ({ children, ...props }) => (
+      <li className="pl-1" {...props}>
+        {children}
+      </li>
+    ),
+    strong: ({ children, ...props }) => (
+      <strong className="text-white font-semibold" {...props}>
+        {children}
+      </strong>
+    ),
+    em: ({ children, ...props }) => (
+      <em className="italic" {...props}>
+        {children}
+      </em>
+    ),
+    pre: (props) => <MdxCodeBlock {...(props as any)} />,
+    code: ({ children, className, ...props }) => {
+      if (!className) {
+        return (
+          <code
+            className="font-mono text-sm bg-white/8 text-(--rr-accent) px-1.5 py-0.5 rounded-md"
+            {...props}
+          >
+            {children}
+          </code>
+        );
+      }
 
-export const useMDXComponents = (): MDXComponents => components;
+      return (
+        <code className={className} {...props}>
+          {children}
+        </code>
+      );
+    },
+  };
+}
