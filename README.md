@@ -91,7 +91,7 @@ Visita los ejemplos interactivos en [https://react-rescuer.vercel.app/docs/live-
 
 - [npm](https://www.npmjs.com/package/react-rescuer)
 - [GitHub](https://github.com/rody-huancas/react-rescuer)
-- [Discord](https://discord.gg/react-rescuer)
+- [Web](https://react-rescuer.vercel.app/)
 
 ---
 
