@@ -1,7 +1,7 @@
 # React Rescuer Website
 
 <p align="center">
-  <img src="/logo-react-rescuer.webp" alt="React Rescuer" width="120" />
+  <img src="public/logo-react-rescuer.webp" alt="React Rescuer" width="120" />
 </p>
 
 <p align="center">
@@ -22,6 +22,48 @@
 
 ---
 
+<img src="public/landing-hero.png" alt="React Rescuer Landing" />
+
+---
+
+## Por qué React Rescuer?
+
+Cuando se lanza un error en React, toda la app puede caer. Un solo componente que falla puede tumbar toda la UI. **React Rescuer** mantiene tu app viva dando fallback granulares, recovery automático y observabilidad sin drama.
+
+### El problema
+
+```tsx
+// App se rompe si UserAvatar falla
+function App() {
+  return (
+    <div>
+      <Header />
+      <UserAvatar /> {/* 👈 si esto falla, TODO falla */}
+      <Content />
+    </div>
+  );
+}
+```
+
+### La solución
+
+```tsx
+// Solo UserAvatar muestra fallback, el resto vive
+function App() {
+  return (
+    <div>
+      <Header />
+      <ErrorBoundary fallback={<AvatarFallback />}>
+        <UserAvatar />
+      </ErrorBoundary>
+      <Content />
+    </div>
+  );
+}
+```
+
+---
+
 ## Descripción
 
 **React Rescuer** es una librería moderna para el manejo de Error Boundaries en React. Mantiene tu UI viva con fallbacks claros, reintentos inteligentes con backoff exponencial y contexto de observabilidad listo para producción.
@@ -30,7 +72,7 @@
 
 - **Fallbacks granulares** — captura errores a nivel de componente, no de toda la app
 - **Recovery automático** — reintenta con estrategias configurables de backoff
-- **Observabilidad** — fingerprint, breadcrumbs y sessionId para tus pipelines de erro
+- **Observabilidad** — fingerprint, breadcrumbs y sessionId para tus pipelines de errorr
 - **API simple** — drop-in con tu código existente
 
 ---
@@ -39,10 +81,15 @@
 
 ```bash
 npm install react-rescuer
-# o
+```
+```bash
 pnpm add react-rescuer
-# o
+```
+```bash
 yarn add react-rescuer
+```
+```bash
+bun add react-rescuer
 ```
 
 ---
@@ -65,15 +112,15 @@ function App() {
 
 ---
 
-## documentacion
+## Documentación
 
-Consulta la documentación completa en [https://rody-huancas.github.io/react-rescuer/docs](https://rody-huancas.github.io/react-rescuer/docs)
+Consulta la documentación completa en [https://react-rescuer.vercel.app/docs](https://react-rescuer.vercel.app/docs)
 
 ---
 
 ## Ejemplos en vivo
 
-Visita los ejemplos interactivos en [/docs/live-examples](/docs/live-examples):
+Visita los ejemplos interactivos en [https://react-rescuer.vercel.app/docs/live-examples](https://react-rescuer.vercel.app/docs/live-examples):
 
 - **Fallback básico** — error de render capturado
 - **fallbackRender** — accede a error, retryCount, resetError
@@ -86,7 +133,7 @@ Visita los ejemplos interactivos en [/docs/live-examples](/docs/live-examples):
 
 - [npm](https://www.npmjs.com/package/react-rescuer)
 - [GitHub](https://github.com/rody-huancas/react-rescuer)
-- [Discord](https://discord.gg/react-rescuer)
+- [Web](https://react-rescuer.vercel.app)
 
 ---
 
