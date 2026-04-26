@@ -8,6 +8,7 @@ import InstallCommands from "@/components/sections/InstallCommands";
 import useHeroAnimations from "@/hooks/useHeroAnimations";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import { FiArrowRight, FiBookOpen, FiGithub } from "react-icons/fi";
+import Link from "next/link";
 
 const Hero = () => {
   const rootRef = useRef<HTMLElement | null>(null);
@@ -87,7 +88,7 @@ const Hero = () => {
                   <a
                     data-rr-cta
                     data-rr-btn
-                    href="/docs#quick-start"
+                    href="/docs"
                     className="group relative isolate inline-flex items-center gap-2.5 overflow-hidden rounded-full px-8 py-4 text-[13px] font-bold uppercase tracking-[0.14em] text-black transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
                     style={{
                       background: "linear-gradient(180deg, color-mix(in oklab, var(--rr-accent), white 16%), var(--rr-accent))",
@@ -104,32 +105,10 @@ const Hero = () => {
                     />
 
                     <span className="relative inline-flex items-center gap-2.5" data-rr-btn-content>
-                      Empezar
+                      Documentación
                       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black/15 transition-transform group-hover:translate-x-0.5">
                         <FiArrowRight size={12} />
                       </span>
-                    </span>
-                  </a>
-
-                  <a
-                    data-rr-btn
-                    href="/docs#intro"
-                    className="group relative isolate inline-flex items-center gap-2.5 overflow-hidden rounded-full border border-white/10 bg-white/4 px-8 py-4 text-[13px] font-bold uppercase tracking-[0.14em] text-white/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_14px_55px_rgba(0,0,0,0.32)] backdrop-blur-md transition-transform hover:-translate-y-0.5 hover:text-white active:scale-[0.98]"
-                  >
-                    <span
-                      data-rr-sheen
-                      className="pointer-events-none absolute inset-y-0 left-0 w-1/2 opacity-0"
-                      style={{
-                        background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent)",
-                        transform: "translateX(-140%) skewX(-18deg)",
-                      }}
-                    />
-                    <span className="relative inline-flex items-center gap-2.5" data-rr-btn-content>
-                      <FiBookOpen
-                        size={14}
-                        className="text-white/55 transition-colors group-hover:text-white/80"
-                      />
-                      Docs
                     </span>
                   </a>
 
