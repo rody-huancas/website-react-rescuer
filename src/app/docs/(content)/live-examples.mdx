@@ -1,106 +1,24 @@
-import LiveExample from "@/components/docs/LiveExample";
+import BasicFallbackExample from "@/components/docs/examples/BasicFallbackExample";
+import FallbackRenderExample from "@/components/docs/examples/FallbackRenderExample";
+import AsyncHandlerExample from "@/components/docs/examples/AsyncHandlerExample";
+import RecoveryObservabilityExample from "@/components/docs/examples/RecoveryObservabilityExample";
 
 <h2 id="examples">Ejemplos en tiempo real</h2>
 
-Esta seccion es un sandbox inline: simula errores y mira como el `ErrorBoundary` captura, muestra fallback y resetea.
+Esta sección es un sandbox interactivo: simula errores y mira cómo el `ErrorBoundary` captura, muestra fallback y resetea.
 
-<LiveExample
-  mode="render"
-  title="Boundary basico (error de render)"
-  description="Un error lanzado durante render es capturado por ErrorBoundary. Prueba el fallback y el reset."
-  code={`import { ErrorBoundary } from "react-rescuer";
+<div className="mt-8">
+  <BasicFallbackExample />
+</div>
 
-  export function App() {
-    return (
-      <ErrorBoundary fallback={<div>Algo salio mal.</div>}>
-        <Page />
-      </ErrorBoundary>
-    );
-  }`}
-/>
+<div className="mt-8">
+  <FallbackRenderExample />
+</div>
 
-<LiveExample
-  mode="async"
-  title="Errores async/eventos con useErrorBoundary()"
-  description="Un error de fetch se eleva al boundary mas cercano usando showBoundary(error)."
-  code={`import { ErrorBoundary } from "react-rescuer";
-import { useErrorBoundary } from "react-rescuer/hooks";
+<div className="mt-8">
+  <AsyncHandlerExample />
+</div>
 
-function SaveButton() {
-  const { showBoundary } = useErrorBoundary();
-
-  return (
-    <button
-      type="button"
-      onClick={async () => {
-        try {
-          await fetch("/api/save");
-          throw new Error("error async");
-        } catch (e) {
-          showBoundary(e as Error);
-        }
-      }}
-    >
-      Save
-    </button>
-)}
-
-  export function Demo() {
-    return (
-      <ErrorBoundary fallback={<div>Fallback</div>}>
-        <SaveButton />
-      </ErrorBoundary>
-    );
-  }`}
-/>
-
-<LiveExample
-  mode="recovery"
-  title="Recovery (reintentos)"
-  description="Configura recovery: resetError se convierte en Retry y retryCount aumenta con cada intento."
-  code={`import { ErrorBoundary } from "react-rescuer";
-
-export function Demo() {
-    return (
-      <ErrorBoundary
-        recovery={{
-          maxRetries: 3,
-          retryDelay: (attempt) => Math.min(1000, 200 * 2 ** (attempt - 1)),
-        }}
-        fallbackRender={({ error, resetError, retryCount }) => (
-          <div>
-            <div>{error.message}</div>
-            <div>retryCount: {retryCount}</div>
-            <button onClick={resetError}>Retry</button>
-          </div>
-        )}
-      >
-        <Page />
-      </ErrorBoundary>
-    );
-  }`}
-/>
-
-<LiveExample
-  mode="observability"
-  title="Observabilidad (buildErrorContext + breadcrumbs)"
-  description="Agrega breadcrumbs, dispara el error y revisa el fingerprint y cantidad de breadcrumbs."
-  code={`import { ErrorBoundary } from "react-rescuer";
-import { addBreadcrumb, buildErrorContext } from "react-rescuer/observability";
-
-export function Demo() {
-    return (
-      <ErrorBoundary
-        contextBuilder={buildErrorContext}
-        onError={(_err, _info, ctx) => {
-          console.log("ErrorContext", ctx);
-        }}
-        fallback={<div>Mira la consola</div>}
-      >
-        <button type="button" onClick={() => addBreadcrumb({ type: "custom", message: "click" })}>
-          Agregar breadcrumb
-        </button>
-      </ErrorBoundary>
-    );
-  }`}
-/>
+<div className="mt-8">
+  <RecoveryObservabilityExample />
+</div>
