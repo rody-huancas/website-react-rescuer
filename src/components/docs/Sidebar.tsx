@@ -31,10 +31,8 @@ const Sidebar = () => {
       </div>
 
       <aside
-        className="hidden overflow-hidden rounded-2xl border border-white/6 bg-[#111111] lg:block lg:fixed lg:top-36 lg:h-[calc(100dvh-180px)] lg:w-70"
-        style={{
-          left: "max(20px, calc((100vw - 80rem) / 2 + 20px))",
-        }}
+  className="hidden overflow-hidden rounded-2xl border border-white/6 bg-[#111111]  lg:block lg:sticky lg:top-36 lg:h-[calc(100dvh-180px)] lg:w-70 lg:shrink-0"
+        
       >
         <SidebarContent
           activeSlug={activeSlug}
