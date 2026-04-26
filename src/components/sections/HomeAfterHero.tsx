@@ -16,7 +16,7 @@ const HomeAfterHero = () => {
   useHomeAfterHeroAnimations({ rootRef, prefersReducedMotion });
 
   return (
-    <section ref={rootRef} className="relative py-24" style={{ visibility: "hidden" }}>
+    <section ref={rootRef} className="relative pt-24" style={{ visibility: "hidden" }}>
       <HomeAfterHeroBlobs />
 
       <Container>
