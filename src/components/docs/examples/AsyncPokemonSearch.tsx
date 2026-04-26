@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useErrorBoundary } from "react-rescuer/hooks";
 import { cn } from "@/utils/cn";
 import { PrimaryButton } from "@/components/docs/live-example/buttons";
+import { config } from "@/config/env.config";
 import { IoCheckmark } from "react-icons/io5";
 
 export type IPokemonResult = {
@@ -32,7 +33,7 @@ const AsyncPokemonSearch = ({ onAttempt, onSuccess }: Props) => {
     setLoading(true);
     onAttempt(target);
     try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(target)}`);
+      const res = await fetch(`${config.pokeapiUrl}/api/v2/pokemon/${encodeURIComponent(target)}`);
 
       if (!res.ok) {
         throw new Error(`Pokemon "${target}" no existe (HTTP ${res.status})`);
