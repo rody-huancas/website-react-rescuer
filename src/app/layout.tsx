@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Poppins } from "next/font/google";
+import Footer from "@/components/sections/Footer";
 import Header from "@/components/sections/Header";
 import Providers from "./providers";
 import { cn } from "@/utils/cn";
@@ -51,6 +52,8 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
         <main className="flex-1">
           {children}
         </main>
+        
+        <Footer />
       </Providers>
     </body>
   </html>
