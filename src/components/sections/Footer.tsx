@@ -2,7 +2,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 
 const Footer = () => (
-  <footer className="border-t border-white/8 bg-black/30">
+  <footer className="border-t border-white/8 bg-black/30 mt-10">
     <Container className="py-8">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
