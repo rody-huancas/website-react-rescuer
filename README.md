@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# React Rescuer Website
 
-## Getting Started
+<p align="center">
+  <img src="/logo-react-rescuer.webp" alt="React Rescuer" width="120" />
+</p>
 
-First, run the development server:
+<p align="center">
+  <strong>Manejo de errores en React con fallbacks granulares, reintentos inteligentes con backoff y contexto de observabilidad listo para producción.</strong>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/react-rescuer">
+    <img src="https://img.shields.io/npm/v/react-rescuer?style=flat&color=ED1C40" alt="npm version" />
+  </a>
+  <a href="https://github.com/rody-huancas/react-rescuer/blob/master/LICENSE">
+    <img src="https://img.shields.io/npm/l/react-rescuer?style=flat" alt="license" />
+  </a>
+  <a href="https://github.com/rody-huancas/react-rescuer">
+    <img src="https://img.shields.io/github/stars/rody-huancas/react-rescuer?style=flat" alt="stars" />
+  </a>
+</p>
+
+---
+
+## Descripción
+
+**React Rescuer** es una librería moderna para el manejo de Error Boundaries en React. Mantiene tu UI viva con fallbacks claros, reintentos inteligentes con backoff exponencial y contexto de observabilidad listo para producción.
+
+### Características
+
+- **Fallbacks granulares** — captura errores a nivel de componente, no de toda la app
+- **Recovery automático** — reintenta con estrategias configurables de backoff
+- **Observabilidad** — fingerprint, breadcrumbs y sessionId para tus pipelines de erro
+- **API simple** — drop-in con tu código existente
+
+---
+
+## Instalación
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install react-rescuer
+# o
+pnpm add react-rescuer
+# o
+yarn add react-rescuer
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Uso rápido
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```tsx
+import { ErrorBoundary } from "react-rescuer";
 
-## Learn More
+function App() {
+  return (
+    <ErrorBoundary
+      fallback={<div>Algo salió mal.</div>}
+    >
+      <Page />
+    </ErrorBoundary>
+  );
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## documentacion
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Consulta la documentación completa en [https://rody-huancas.github.io/react-rescuer/docs](https://rody-huancas.github.io/react-rescuer/docs)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Ejemplos en vivo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Visita los ejemplos interactivos en [/docs/live-examples](/docs/live-examples):
+
+- **Fallback básico** — error de render capturado
+- **fallbackRender** — accede a error, retryCount, resetError
+- **useErrorBoundary** — eleva errores async
+- **Recovery + Observabilidad** — reintentos automáticos con contexto
+
+---
+
+## Recursos
+
+- [npm](https://www.npmjs.com/package/react-rescuer)
+- [GitHub](https://github.com/rody-huancas/react-rescuer)
+- [Discord](https://discord.gg/react-rescuer)
+
+---
+
+## License
+
+MIT © [Rody Huancas](https://rody-huancas.vercel.app)
