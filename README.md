@@ -30,7 +30,7 @@
 
 - **Fallbacks granulares** — captura errores a nivel de componente, no de toda la app
 - **Recovery automático** — reintenta con estrategias configurables de backoff
-- **Observabilidad** — fingerprint, breadcrumbs y sessionId para tus pipelines de erro
+- **Observabilidad** — fingerprint, breadcrumbs y sessionId para tus pipelines de errores
 - **API simple** — drop-in con tu código existente
 
 ---
@@ -65,15 +65,15 @@ function App() {
 
 ---
 
-## documentacion
+## Documentación
 
-Consulta la documentación completa en [https://rody-huancas.github.io/react-rescuer/docs](https://rody-huancas.github.io/react-rescuer/docs)
+Consulta la documentación completa en [https://react-rescuer.vercel.app/docs](https://react-rescuer.vercel.app/docs)
 
 ---
 
 ## Ejemplos en vivo
 
-Visita los ejemplos interactivos en [/docs/live-examples](/docs/live-examples):
+Visita los ejemplos interactivos en [https://react-rescuer.vercel.app/docs/live-examples](https://react-rescuer.vercel.app/docs/live-examples):
 
 - **Fallback básico** — error de render capturado
 - **fallbackRender** — accede a error, retryCount, resetError
