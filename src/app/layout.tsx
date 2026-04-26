@@ -44,7 +44,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
         }}
       />
     </head>
-    <body className="min-h-full flex flex-col overflow-x-hidden">
+    <body className="min-h-full flex flex-col overflow-x-hidden" suppressHydrationWarning>
       <Providers>
         <Header />
        
