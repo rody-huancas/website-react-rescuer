@@ -1,8 +1,13 @@
 # React Rescuer Website
 
 <p align="center">
-  <img src="/logo-react-rescuer.webp" alt="React Rescuer" width="120" />
+  <img src="public/logo-react-rescuer.webp" alt="React Rescuer" width="120" />
 </p>
+
+
+| Landing |
+| --- |
+| ![Landing](public/landing-hero.png) |
 
 <p align="center">
   <strong>Manejo de errores en React con fallbacks granulares, reintentos inteligentes con backoff y contexto de observabilidad listo para producción.</strong>
