@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import { config } from "@/config/env.config";
 
 const Footer = () => (
   <footer className="border-t border-white/8 bg-black/30 mt-10">
@@ -9,7 +10,7 @@ const Footer = () => (
           <p className="mt-1 text-xs text-white/50">
             Desarrollado por{" "}
             <a
-              href="https://rody-huancas.vercel.app/"
+              href={config.portfolioUrl}
               target="_blank"
               rel="noreferrer"
               className="font-semibold text-white hover:text-(--rr-accent)"
@@ -25,7 +26,7 @@ const Footer = () => (
           </Link>
 
           <a
-            href="https://www.npmjs.com/package/react-rescuer"
+            href={config.npmUrl}
             target="_blank"
             rel="noreferrer"
             className="hover:text-white"
@@ -34,7 +35,7 @@ const Footer = () => (
           </a>
           
           <a
-            href="https://github.com/rody-huancas/react-rescuer"
+            href={config.githubUrl}
             target="_blank"
             rel="noreferrer"
             className="hover:text-white"
