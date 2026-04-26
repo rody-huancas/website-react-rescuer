@@ -9,9 +9,9 @@ const DocsSidebar = () => {
   const hash = useHash();
 
   return (
-    <aside className="hidden lg:block">
-      <div className="sticky top-26">
-        <div className="rounded-2xl border border-white/5 bg-black/25 p-4 backdrop-blur">
+<aside className="hidden lg:block">
+  <div className="sticky top-26">
+    <div className="rounded-2xl border border-white/5 bg-black/25 p-4 backdrop-blur">
           {docsNav.map((group) => (
             <div key={group.title} className="mb-5 last:mb-0">
               <div className="px-2 pb-2 font-(family-name:--font-geist-mono) text-[11px] tracking-[0.22em] text-(--rr-muted)">
