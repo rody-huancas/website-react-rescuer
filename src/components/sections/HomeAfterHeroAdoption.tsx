@@ -1,35 +1,66 @@
-import { FiZap } from "react-icons/fi";
+import HomeAfterHeroStepCard from "./HomeAfterHeroStepCard";
 import { ADOPTION_STEPS } from "@/constants/homeAfterHero";
+import { FiZap } from "react-icons/fi";
+
 
 const HomeAfterHeroAdoption = () => (
-  <div className="mx-auto mt-16 max-w-4xl">
-    <div data-reveal className="mb-6 flex flex-col gap-1 md:flex-row md:items-end md:justify-between">
-      <div>
-        <p className="text-[10px] uppercase tracking-[0.2em] text-(--rr-accent)">Build fast</p>
-        <h3 className="mt-1.5 text-2xl font-black tracking-tight text-white md:text-[26px]">
-          Patrones reales, no solo snippets
+  <div className="mx-auto mt-40 max-w-7xl px-6">
+    <div className="mb-24 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+      <div className="space-y-6">
+        <div className="inline-flex items-center gap-3 rounded-full border border-(--rr-accent)/20 bg-(--rr-accent)/5 px-6 py-2">
+          <FiZap className="text-(--rr-accent) animate-pulse" size={18} />
+          
+          <span className="text-[12px] font-black uppercase tracking-[0.4em] text-(--rr-accent)">
+            Adoption Roadmap
+          </span>
+        </div>
+
+        <h3 className="text-6xl font-black tracking-tighter text-white md:text-8xl leading-[0.9] flex gap-5">
+          Patrones{" "}
+          <span className="text-white/40 italic">reales.</span>
         </h3>
       </div>
+
+      <p className="max-w-100 text-lg font-medium leading-relaxed text-white/40 border-l border-white/10 pl-8">
+        La guía definitiva para construir aplicaciones resilientes, escalables y listas para producción.
+      </p>
     </div>
 
-    <div data-reveal className="rounded-2xl border border-white/7 bg-white/2 p-5">
-      <div className="mb-4 flex items-center gap-2 text-[12px] font-semibold text-white/60">
-        <FiZap className="text-(--rr-accent)" size={13} />
-        Flujo recomendado de adopción
-      </div>
-      <div className="flex flex-wrap items-center gap-y-2">
-        {ADOPTION_STEPS.map((step, i) => (
-          <div key={step} className="inline-flex items-center">
-            <span className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-[12px] text-white/65 transition-colors hover:border-(--rr-accent)/40 hover:text-(--rr-accent)">
-              <span className="mr-1.5 text-(--rr-accent) opacity-70">{i + 1}.</span>
-              {step}
-            </span>
-            {i < ADOPTION_STEPS.length - 1 && (
-              <span className="mx-2 text-[11px] text-white/20">→</span>
-            )}
-          </div>
-        ))}
-      </div>
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
+      <HomeAfterHeroStepCard 
+        num={1}
+        href="/docs/installation"
+        label={ADOPTION_STEPS[0]} 
+        className="md:col-span-8 bg-linear-to-br from-white/5 to-transparent min-h-75" 
+      />
+      
+      <HomeAfterHeroStepCard 
+        num={2}
+        href="/docs/error-boundary"
+        label={ADOPTION_STEPS[1]}
+        className="md:col-span-4" 
+      />
+
+      <HomeAfterHeroStepCard 
+        num={3}
+        href="/docs/hooks"
+        label={ADOPTION_STEPS[2]}
+        className="md:col-span-4"
+      />
+
+      <HomeAfterHeroStepCard 
+        num={4}
+        href="/docs/recovery"
+        label={ADOPTION_STEPS[3]}
+        className="md:col-span-4"
+      />
+      
+      <HomeAfterHeroStepCard 
+        num={5}
+        href="/docs/observability"
+        label={ADOPTION_STEPS[4]}
+        className="md:col-span-4 border-(--rr-accent)/20 bg-(--rr-accent)/5"
+      />
     </div>
   </div>
 );
