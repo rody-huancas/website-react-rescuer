@@ -9,6 +9,7 @@ import useHeroAnimations from "@/hooks/useHeroAnimations";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import { FiArrowRight, FiBookOpen, FiGithub } from "react-icons/fi";
 import Link from "next/link";
+import envConfig from "@/config/env.config";
 
 const Hero = () => {
   const rootRef = useRef<HTMLElement | null>(null);
@@ -114,7 +115,7 @@ const Hero = () => {
 
                   <a
                     data-rr-btn
-                    href="https://github.com/rody-huancas/react-rescuer"
+                    href={envConfig.githubUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="group relative isolate inline-flex items-center gap-2.5 overflow-hidden rounded-full border border-white/10 bg-white/3 px-8 py-4 text-[13px] font-bold uppercase tracking-[0.14em] text-white/70 shadow-[0_14px_55px_rgba(0,0,0,0.26)] backdrop-blur-md transition-transform hover:-translate-y-0.5 hover:text-white active:scale-[0.98]"

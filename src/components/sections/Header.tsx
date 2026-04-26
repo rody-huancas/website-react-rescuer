@@ -6,6 +6,7 @@ import { useRef } from "react";
 import useHeaderAnimations from "@/hooks/useHeaderAnimations";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import { SiNpm, SiGithub } from "react-icons/si";
+import envConfig from "@/config/env.config";
 
 const Header = () => {
   const rootRef = useRef<HTMLElement | null>(null);
@@ -55,7 +56,7 @@ const Header = () => {
 
           <div className="flex items-center gap-2">
             <a
-              href="https://github.com/rody-huancas/react-rescuer"
+              href={envConfig.githubUrl}
               target="_blank"
               rel="noreferrer"
               className="group flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-[12px] font-bold tracking-tight transition-all duration-300 hover:border-white/25 hover:text-white"
@@ -66,7 +67,7 @@ const Header = () => {
             </a>
 
             <a
-              href="https://www.npmjs.com/package/react-rescuer"
+              href={envConfig.npmUrl}
               target="_blank"
               rel="noreferrer"
               className="group flex items-center gap-2.5 rounded-full border border-(--rr-accent)/40 px-5 py-2 text-[12px] font-bold tracking-tight transition-all duration-300 hover:border-(--rr-accent)/80 hover:text-(--rr-accent)"
