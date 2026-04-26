@@ -3,6 +3,10 @@ export type HeaderNavItem = {
   external?: boolean;
 };
 
+const envConfig = {
+  githubUrl: process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/rody-huancas/react-rescuer",
+};
+
 export const HEADER_NAV: HeaderNavItem[] = [
   {
     href : "/docs/introduction"
@@ -11,7 +15,7 @@ export const HEADER_NAV: HeaderNavItem[] = [
     href : "/docs/live-examples"
   },
   {
-    href    : "https://github.com/rody-huancas/react-rescuer",
+    href    : envConfig.githubUrl,
     external: true,
   },
 ];
