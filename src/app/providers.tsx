@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { ProgressProvider } from "@bprogress/next/app";
 import CustomCursorLayer from "@/components/ui/CustomCursorLayer";
+import ServiceWorkerRegister from "@/components/pwa/ServiceWorkerRegister";
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
@@ -12,6 +13,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
       options={{ showSpinner: false }}
     >
       <CustomCursorLayer />
+      <ServiceWorkerRegister />
       
       {children}
     </ProgressProvider>
