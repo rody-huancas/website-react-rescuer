@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import type { Viewport } from "next";
 import { Geist_Mono, Poppins } from "next/font/google";
 import Footer from "@/components/sections/Footer";
 import Header from "@/components/sections/Header";
 import Providers from "./providers";
+import envConfig from "@/config/env.config";
 import { cn } from "@/utils/cn";
+import { createMetadata, JsonLd, softwareSourceCodeJsonLd, websiteJsonLd } from "@/seo";
 import "@/styles/globals.css";
 
 const geistMono = Geist_Mono({
@@ -18,8 +21,27 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title      : "React Rescuer",
-  description: "Una herramienta moderna para Error Boundaries: rescata caídas, conserva contexto y entrega UIs más serenas.",
+  ...createMetadata({
+    title   : "React Rescuer",
+    path    : "/",
+    keywords: [
+      "react error boundary",
+      "react error boundaries",
+      "error boundary react",
+      "manejo de errores react",
+      "react error handling",
+      "react developer tools",
+      "error recovery react",
+      "fallback ui",
+      "observabilidad react",
+      "react-rescuer",
+    ],
+  }),
+  verification: envConfig.googleSiteVerification ? { google: envConfig.googleSiteVerification } : undefined,
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0d0d0d",
 };
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
@@ -44,7 +66,9 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
           __html: "window.setTimeout(function(){document.documentElement.classList.remove('rr-preload');},2000);",
         }}
       />
+      <JsonLd data={[websiteJsonLd(), softwareSourceCodeJsonLd()]} />
     </head>
+
     <body className="min-h-full flex flex-col overflow-x-hidden" suppressHydrationWarning>
       <Providers>
         <Header />
