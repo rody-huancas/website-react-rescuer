@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { ProgressProvider } from "@bprogress/next/app";
+import CustomCursorLayer from "@/components/ui/CustomCursorLayer";
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
@@ -10,6 +11,8 @@ const Providers = ({ children }: { children: ReactNode }) => {
       color="var(--rr-accent)"
       options={{ showSpinner: false }}
     >
+      <CustomCursorLayer />
+      
       {children}
     </ProgressProvider>
   );
