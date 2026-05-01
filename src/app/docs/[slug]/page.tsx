@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import type { ComponentType } from "react";
+import { createMetadata } from "@/seo";
 import HocDoc from "@/app/docs/(content)/hoc.mdx";
 import HooksDoc from "@/app/docs/(content)/hooks.mdx";
 import ResetsDoc from "@/app/docs/(content)/resets.mdx";
@@ -49,10 +50,18 @@ export const generateMetadata = async ({ params }: { params: Promise<{ slug: str
 
   if (!section) return { title: "Docs" };
 
-  return {
-    title: `${section.title} — Documentacion — react-rescuer`,
+  return createMetadata({
+    title      : `${section.title} — Documentacion — react-rescuer`,
     description: section.description,
-  };
+    path       : `/docs/${slug}/`,
+    keywords   : [
+      "react error boundary",
+      "error boundaries react",
+      "react error handling",
+      "react-rescuer",
+      section.title,
+    ],
+  });
 };
 
 const DocsSlugPage = async ({ params }: { params: Promise<{ slug: string }> }) => {

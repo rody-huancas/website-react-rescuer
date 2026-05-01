@@ -4,6 +4,7 @@ const envConfig = {
   githubUrl    : process.env.NEXT_PUBLIC_GITHUB_URL       || "",
   pokemonApiUrl: process.env.NEXT_PUBLIC_POKEMON_API_URL  || "",
   portfolioUrl : process.env.NEXT_PUBLIC_PORTFOLIO_URL    || "",
+  googleSiteVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
 };
 
 export default envConfig;
