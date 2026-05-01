@@ -42,6 +42,60 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  @media (hover: hover) and (pointer: fine) {
+    html,
+    body {
+      cursor: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+      cursor: none !important;
+    }
+
+    .rr-custom-cursor {
+      position: fixed;
+      z-index: 2147483647;
+      pointer-events: none;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .rr-custom-cursor__default,
+    .rr-custom-cursor__pointer,
+    .rr-custom-cursor__text,
+    .rr-custom-cursor__not-allowed,
+    .rr-custom-cursor__grab {
+      transform: translate3d(-4px, -2px, 0);
+      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
+    }
+
+    .rr-custom-cursor__pointer {
+      filter:
+        drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45))
+        drop-shadow(0 0 14px color-mix(in oklab, var(--rr-accent), transparent 55%));
+    }
+
+    .rr-custom-cursor__text {
+      filter:
+        drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45))
+        drop-shadow(0 0 14px color-mix(in oklab, var(--rr-cyan), transparent 55%));
+    }
+
+    .rr-custom-cursor__not-allowed {
+      filter:
+        drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45))
+        drop-shadow(0 0 14px rgba(255, 72, 72, 0.35));
+    }
+
+    .rr-custom-cursor__grab {
+      filter:
+        drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45))
+        drop-shadow(0 0 14px color-mix(in oklab, white, transparent 70%));
+    }
+  }
+
   /* Subtle grid + noise to feel “physical” */
   body::before {
     content: "";
